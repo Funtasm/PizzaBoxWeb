@@ -1,4 +1,5 @@
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using PizzaBox.Client.Models;
 
 namespace PizzaBox.Client.Controllers
 {
@@ -10,7 +11,11 @@ namespace PizzaBox.Client.Controllers
     [HttpGet]
     public IActionResult Index()
     {
-      return View();
+      ViewBag.Order = new OrderViewModel();
+      //ViewData
+      //TempData - does not survive redirects.
+      return View("Index");
+      //explicitly find Index.cshtml. If not stated, will find based on method name.
     }
   }
 }
