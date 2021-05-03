@@ -22,5 +22,6 @@ namespace PizzaBox.Client
             {
               webBuilder.UseStartup<Startup>();
             });
+    //adding some tests
   }
 }
