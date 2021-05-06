@@ -9,14 +9,20 @@ namespace PizzaBox.Client.Controllers
   //[Route("[controller]")]
   public class HomeController : Controller
   {
-    private static readonly UnitOfWork _unitOfWork = new UnitOfWork();
+    private readonly UnitOfWork _unitOfWork;
+    public HomeController(UnitOfWork unitOfWork)
+    {
+      _unitOfWork = unitOfWork;
+    }
     [HttpGet]
     public IActionResult Index()
     {
       // ViewBag.Order = new OrderViewModel();
       //ViewData
       //TempData - does not survive redirects.
-      return View("Index", new OrderViewModel(_unitOfWork));
+      var order = new OrderViewModel();
+      order.Load(_unitOfWork);
+      return View("order", order);
       //explicitly find Index.cshtml. If not stated, will find based on method name.
     }
     [HttpGet]

@@ -21,12 +21,13 @@ namespace PizzaBox.Client.Models
     [Required(ErrorMessage = "ToppingError")]
     public List<string> SelectedToppings { get; set; }
 
-    public OrderViewModel(UnitOfWork unitOfWork)
-    {
-      Crusts = unitOfWork.Crusts.Select().ToList();
-      Sizes = unitOfWork.Sizes.Select().ToList();
-      Toppings = unitOfWork.Toppings.Select().ToList();
 
+
+    public void Load(UnitOfWork unitOfWork)
+    {
+      Crusts = unitOfWork.Crusts.Select(c => c.EntityID > 0).ToList();
+      Sizes = unitOfWork.Sizes.Select(a => a.EntityID > 0).ToList();
+      Toppings = unitOfWork.Toppings.Select(a => a.EntityID > 0).ToList();
     }
     public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
     {

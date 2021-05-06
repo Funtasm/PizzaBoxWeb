@@ -1,27 +1,35 @@
+using System;
 using System.Collections.Generic;
 using PizzaBox.Domain.Interfaces;
 using PizzaBox.Domain.Models;
 
 namespace PizzaBox.Storage.Repositories
 {
-  public class ToppingsRepository : IRepository
+  public class ToppingsRepository : IRepository<Topping>
   {
-    public IEnumerable<Topping> Select()
+    private readonly PizzaBoxContext _context;
+    public ToppingsRepository(PizzaBoxContext context)
     {
-
+      _context = context;
+    }
+    public bool Delete()
+    {
+      throw new System.NotImplementedException();
     }
 
-    public void Update()
+    public bool Insert()
     {
-
+      throw new System.NotImplementedException();
     }
-    public Topping Insert()
-    {
 
+    public IEnumerable<Topping> Select(Func<Topping, bool> filter)
+    {
+      throw new System.NotImplementedException();
     }
-    public void Delete()
-    {
 
+    public Topping Update()
+    {
+      throw new System.NotImplementedException();
     }
   }
 }
