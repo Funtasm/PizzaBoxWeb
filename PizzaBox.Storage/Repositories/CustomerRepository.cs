@@ -5,11 +5,7 @@ using PizzaBox.Domain.Models;
 
 namespace PizzaBox.Storage.Repositories
 {
-<<<<<<< HEAD
   public class CustomerRepository : IRepository<Customer>
-=======
-  public class CustomerRepository : IRepository
->>>>>>> parent of c4f2f25... WorkingPostGres
   {
     public bool Delete()
     {

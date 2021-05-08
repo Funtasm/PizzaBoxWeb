@@ -21,18 +21,13 @@ namespace PizzaBox.Client.Models
     [Required(ErrorMessage = "ToppingError")]
     public List<string> SelectedToppings { get; set; }
 
-    public OrderViewModel(UnitOfWork unitOfWork)
+
+
+    public void Load(UnitOfWork unitOfWork)
     {
-<<<<<<< HEAD
       Crusts = unitOfWork.Repo.Select<Crust>(unitOfWork.context.Crusts, c => !string.IsNullOrWhiteSpace(c.Name)).ToList();
       Sizes = unitOfWork.Repo.Select<Size>(unitOfWork.context.Sizes, a => a.EntityID > 0).ToList();
       Toppings = unitOfWork.Repo.Select<Topping>(unitOfWork.context.Toppings, a => a.EntityID > 0).ToList();
-=======
-      Crusts = unitOfWork.Crusts.Select().ToList();
-      Sizes = unitOfWork.Sizes.Select().ToList();
-      Toppings = unitOfWork.Toppings.Select().ToList();
-
->>>>>>> parent of c4f2f25... WorkingPostGres
     }
     public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
     {

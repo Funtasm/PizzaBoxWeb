@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using PizzaBox.Domain.Interfaces;
@@ -5,34 +6,31 @@ using PizzaBox.Domain.Models;
 
 namespace PizzaBox.Storage.Repositories
 {
-  public class ToppingsRepository : IRepository
+  public class ToppingsRepository : IRepository<Topping>
   {
-    public IEnumerable<Topping> Select()
+    private readonly PizzaBoxContext _context;
+    public ToppingsRepository(PizzaBoxContext context)
     {
+      _context = context;
+    }
+    public bool Delete()
+    {
+      throw new System.NotImplementedException();
+    }
 
-<<<<<<< HEAD
     public void Insert(Topping entry)
     {
       throw new NotImplementedException();
-=======
->>>>>>> parent of c4f2f25... WorkingPostGres
     }
 
-    public void Update()
+    public IEnumerable<Topping> Select(Func<Topping, bool> filter)
     {
-<<<<<<< HEAD
       return _context.Toppings.Where(filter);
-=======
-
->>>>>>> parent of c4f2f25... WorkingPostGres
     }
-    public Topping Insert()
-    {
 
-    }
-    public void Delete()
+    public Topping Update()
     {
-
+      throw new System.NotImplementedException();
     }
   }
 }

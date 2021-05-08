@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using PizzaBox.Domain.Interfaces;
@@ -5,14 +6,19 @@ using PizzaBox.Domain.Models;
 
 namespace PizzaBox.Storage.Repositories
 {
-  public class SizeRepository : IRepository
+  public class SizeRepository : IRepository<Size>
   {
-    public IEnumerable<Size> Select()
+    private readonly PizzaBoxContext _context;
+    public SizeRepository(PizzaBoxContext context)
     {
-
+      _context = context;
     }
 
-<<<<<<< HEAD
+    public bool Delete()
+    {
+      throw new System.NotImplementedException();
+    }
+
     public void Insert(Size entry)
     {
       throw new NotImplementedException();
@@ -21,19 +27,11 @@ namespace PizzaBox.Storage.Repositories
     public IEnumerable<Size> Select(Func<Size, bool> filter)
     {
       return _context.Sizes.Where(filter);
-=======
-    public void Update()
-    {
-
->>>>>>> parent of c4f2f25... WorkingPostGres
     }
-    public Size Insert()
-    {
 
-    }
-    public void Delete()
+    public Size Update()
     {
-
+      throw new System.NotImplementedException();
     }
   }
 }
