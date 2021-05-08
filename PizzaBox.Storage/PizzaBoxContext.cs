@@ -10,6 +10,10 @@ namespace PizzaBox.Storage
     public DbSet<Crust> Crusts { get; set; }
     public DbSet<Size> Sizes { get; set; }
     public DbSet<Topping> Toppings { get; set; }
+    public DbSet<Order> Orders { get; set; }
+    public DbSet<Pizza> Pizzas { get; set; }
+    public DbSet<Customer> Customers { get; set; }
+    public DbSet<Store> Stores { get; set; }
     public PizzaBoxContext(DbContextOptions options) : base(options) { }
 
     protected override void OnModelCreating(ModelBuilder builder)
@@ -17,6 +21,10 @@ namespace PizzaBox.Storage
       builder.Entity<Crust>().HasKey(a => a.EntityID);
       builder.Entity<Size>().HasKey(a => a.EntityID);
       builder.Entity<Topping>().HasKey(a => a.EntityID);
+      builder.Entity<Pizza>().HasKey(a => a.EntityID);
+      builder.Entity<Order>().HasKey(a => a.EntityID);
+      builder.Entity<Customer>().HasKey(a => a.EntityID);
+      builder.Entity<Store>().HasKey(a => a.EntityID);
       OnDataSeeding(builder);
     }
     protected void OnDataSeeding(ModelBuilder builder)

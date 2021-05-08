@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using PizzaBox.Domain.Interfaces;
 using PizzaBox.Domain.Models;
 
@@ -17,14 +18,14 @@ namespace PizzaBox.Storage.Repositories
       throw new System.NotImplementedException();
     }
 
-    public bool Insert()
+    public void Insert(Topping entry)
     {
-      throw new System.NotImplementedException();
+      throw new NotImplementedException();
     }
 
     public IEnumerable<Topping> Select(Func<Topping, bool> filter)
     {
-      throw new System.NotImplementedException();
+      return _context.Toppings.Where(filter);
     }
 
     public Topping Update()

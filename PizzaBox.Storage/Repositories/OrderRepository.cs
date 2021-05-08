@@ -18,9 +18,9 @@ namespace PizzaBox.Storage.Repositories
       throw new System.NotImplementedException();
     }
 
-    public bool Insert()
+    public void Insert(Order entry)
     {
-      throw new System.NotImplementedException();
+      _context.Orders.Add(entry);
     }
 
     public IEnumerable<Order> Select(Func<Order, bool> filter)

@@ -18,12 +18,6 @@ namespace PizzaBox.Storage.Repositories
       return _context.Crusts.Where(filter);
     }
 
-
-    public bool Insert()
-    {
-      throw new System.NotImplementedException();
-    }
-
     public Crust Update()
     {
       throw new System.NotImplementedException();
@@ -32,6 +26,11 @@ namespace PizzaBox.Storage.Repositories
     public bool Delete()
     {
       throw new System.NotImplementedException();
+    }
+
+    public void Insert(Crust entry)
+    {
+      throw new NotImplementedException();
     }
   }
 }

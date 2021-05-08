@@ -1,11 +1,11 @@
 using System.Collections.Generic;
 using PizzaBox.Domain.Abstracts;
-
 namespace PizzaBox.Domain.Models
 {
-  public class Crust : AComponent
+  public class Customer : Entity
   {
-    public ICollection<Pizza> Pizzas { get; set; }
+    string UserName { set; get; }
+    List<Order> Orders { set; get; }
 
   }
 }

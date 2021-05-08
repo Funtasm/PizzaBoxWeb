@@ -6,10 +6,10 @@ using PizzaBox.Domain.Models;
 
 namespace PizzaBox.Storage.Repositories
 {
-  public class SizeRepository : IRepository<Size>
+  public class PizzaRepository : IRepository<Pizza>
   {
     private readonly PizzaBoxContext _context;
-    public SizeRepository(PizzaBoxContext context)
+    public PizzaRepository(PizzaBoxContext context)
     {
       _context = context;
     }
@@ -19,17 +19,17 @@ namespace PizzaBox.Storage.Repositories
       throw new System.NotImplementedException();
     }
 
-    public void Insert(Size entry)
+    public void Insert(Pizza entry)
     {
       throw new NotImplementedException();
     }
 
-    public IEnumerable<Size> Select(Func<Size, bool> filter)
+    public IEnumerable<Pizza> Select(Func<Pizza, bool> filter)
     {
-      return _context.Sizes.Where(filter);
+      return _context.Pizzas.Where(filter);
     }
 
-    public Size Update()
+    public Pizza Update()
     {
       throw new System.NotImplementedException();
     }

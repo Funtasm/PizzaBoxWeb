@@ -4,20 +4,21 @@ namespace PizzaBox.Storage
 {
   public class UnitOfWork
   {
-    private readonly PizzaBoxContext _context;
+    public readonly PizzaBoxContext context;
     public CrustRepository Crusts { get; }
     public SizeRepository Sizes { get; }
     public ToppingsRepository Toppings { get; }
-    public UnitOfWork()
+    public OrderRepository Orders { get; }
+    public Repository Repo { get; }
+    public UnitOfWork(PizzaBoxContext Thecontext)
     {
-      Crusts = new CrustRepository(_context);
-      Sizes = new SizeRepository(_context);
-      Toppings = new ToppingsRepository(_context);
+      context = Thecontext;
+      Repo = new Repository();
     }
 
     public void Save()
     {
-      _context.SaveChanges();
+      context.SaveChanges();
     }
   }
 }
