@@ -4,6 +4,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: dotnet build
+<<<<<<< HEAD
   sonarcloud:
     runs-on: ubuntu-20.04
     steps:
@@ -16,6 +17,19 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+=======
+  #sonarcloud:
+    #runs-on: ubuntu-20.04
+    #steps:
+      #- uses: actions/checkout@v2
+        #with:
+          #fetch-depth: 0
+      #- name: SonarCloud Scan
+        #uses: sonarsource/sonarcloud-github-action@master
+        #env:
+        #GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        #SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+>>>>>>> parent of 6e75368... SonarCloudTest
   # test :xunit + coverlet
   # analysze : sonarcloud    
 name: ci-pipeline
