@@ -4,14 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using PizzaBox.Storage;
-
-
 
 namespace PizzaBox.Client
 {
@@ -22,17 +18,12 @@ namespace PizzaBox.Client
       Configuration = configuration;
     }
 
-    public IConfiguration Configuration { get; set; }
+    public IConfiguration Configuration { get; }
 
     // This method gets called by the runtime. Use this method to add services to the container.
     public void ConfigureServices(IServiceCollection services)
     {
       services.AddControllersWithViews();
-      services.AddScoped<UnitOfWork>();
-      services.AddDbContext<PizzaBoxContext>(options =>
-      {
-        options.UseNpgsql(Configuration.GetConnectionString("pgsql")); //mssql
-      });
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
