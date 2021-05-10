@@ -30,8 +30,15 @@ namespace PizzaBox.Client.Controllers
           toppings.Add(_unitOfWork.Repo.Select<Topping>(_unitOfWork.context.Toppings, a => a.Name == item).First());
         }
         var newPizza = new Pizza { Crust = crust, Size = size, Toppings = toppings };
-        var newOrder = new Order { Pizzas = new List<Pizza> { newPizza } };
+        var customer = _unitOfWork.Repo.Select<Customer>(_unitOfWork.context.Customers, a => a.FirstName == "Seth").First();
+        var store = _unitOfWork.Repo.Select<Store>(_unitOfWork.context.Stores, a => a.EntityID == 1).First();
+        var newOrder = new Order { Pizzas = new List<Pizza> { newPizza }, Customer = customer, Store = store };
 
+
+        _unitOfWork.Repo.Insert<Order>(_unitOfWork.context.Orders, newOrder);
+        _unitOfWork.Save();
+
+        ViewBag.Order = newOrder;
         return View("checkout", order);
       }
       order.Load(_unitOfWork);

@@ -1,11 +1,37 @@
 @model PizzaBox.Client.Models.OrderViewModel
-<h2>Testing</h2>
-
+<h2>Store</h2>
+<style>
+  .field-validation-error {
+    color: red;
+  }
+</style>
 
 
 @* HTML WAY*@
 <form action="/order" method="post">
   @Html.AntiForgeryToken()
+  <div class="row">
+    <label for="SelectedStore">Choose a Store:</label>
+  </div>
+  <div class="row">
+    <select class="form-select" asp-for="SelectedStore" aria-label="Default select example">
+      <option label=""></option>
+      @foreach (var item in Model.Stores)
+
+      {
+        <option label="@item.Address" value="@item.Address"></option>
+      }
+    </select>
+
+  </div>
+  <div class="row">
+    @Html.ValidationMessageFor(m => m.SelectedStore)
+  </div>
+  <div class="row">
+    <h2>
+      Pizza Options
+    </h2>
+  </div>
   <div class="row">
     <div class="col">
       @foreach (var item in Model.Crusts)
@@ -13,9 +39,10 @@
         <div class="form-check">
           <input class="form-check-input" type="radio" asp-for="SelectedCrust" value="@item">
           <label class="form-check-label" for="@item">@item</label>
-          @Html.ValidationMessageFor(m => m.SelectedCrust)
+
         </div>
       }
+      @Html.ValidationMessageFor(m => m.SelectedCrust)
     </div>
     <div class="col">
       @foreach (var item in Model.Sizes)
@@ -23,9 +50,10 @@
         <div class="form-check">
           <input class="form-check-input" type="radio" asp-for="SelectedSize" value="@item">
           <label class="form-check-label" for="@item">@item</label>
-          @Html.ValidationMessageFor(m => m.SelectedSize)
+
         </div>
       }
+      @Html.ValidationMessageFor(m => m.SelectedSize)
     </div>
     <div class="col">
       @foreach (var item in Model.Toppings)
@@ -33,9 +61,10 @@
         <div class="form-check">
           <input class="form-check-input" type="checkbox" id="@item" name="selectedtoppings" value="@item">
           <label class="form-check-label" for="@item">@item</label>
-          @Html.ValidationMessageFor(m => m.SelectedToppings)
+
         </div>
       }
+      @Html.ValidationMessageFor(m => m.SelectedToppings)
     </div>
   </div>
   <button type="submit">Select Pizza</button>

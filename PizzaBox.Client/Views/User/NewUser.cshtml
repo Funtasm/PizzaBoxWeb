@@ -1,0 +1,32 @@
+@model PizzaBox.Client.Models.UserViewModel
+</style>
+<form asp-controller="User" asp-action="Welcome" method="post">
+  <div class="form-group">
+    <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1"
+      asp-for="Username">
+    @Html.ValidationMessageFor(a => a.Username, "", new {@class = "text-danger"})
+  </div>
+  <div class="form-group">
+    <input type="text" class="form-control" placeholder="First Name" aria-label="FirstName"
+      aria-describedby="basic-addon1" asp-for="FirstName">
+    @Html.ValidationMessageFor(a => a.FirstName, "", new {@class = "text-danger"})
+  </div>
+  <div class="form-group">
+    <input type="text" class="form-control" placeholder="Last Name" aria-label="LastName"
+      aria-describedby="basic-addon1" asp-for="LastName">
+    @Html.ValidationMessageFor(a => a.LastName, "", new {@class = "text-danger"})
+  </div>
+  <div class="form-group">
+    <label for="">Password</label>
+    <input type="password" class="form-control" placeholder="Password" asp-for="Password">
+    @Html.ValidationMessageFor(a => a.Password, "", new {@class = "text-danger"})
+  </div>
+  <div class="form-group">
+    <label for="">Confirm Password</label>
+    <input type="password" class="form-control" placeholder="Confirm Password" asp-for="ConfirmPassword">
+    @Html.ValidationMessageFor(a => a.ConfirmPassword, "", new {@class = "text-danger"})
+  </div>
+  <div class="form-group">
+    <button type="submit">Create User</button>
+  </div>
+</form>

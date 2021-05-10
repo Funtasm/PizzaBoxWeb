@@ -11,15 +11,15 @@ namespace PizzaBox.Storage.Repositories
     {
       return Database.Where(filter);
     }
-    void Insert<T>(T entry)
+    public void Insert<T>(DbSet<T> Database, T entry) where T : class
+    {
+      Database.Add(entry);
+    }
+    public T Update<T>()
     {
       throw new System.NotImplementedException();
     }
-    T Update<T>()
-    {
-      throw new System.NotImplementedException();
-    }
-    bool Delete()
+    public bool Delete()
     {
       throw new System.NotImplementedException();
     }

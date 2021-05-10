@@ -4,8 +4,11 @@ namespace PizzaBox.Domain.Models
 {
   public class Customer : Entity
   {
-    string UserName { set; get; }
-    List<Order> Orders { set; get; }
+    public string UserName { set; get; }
+    public string FirstName { set; get; }
+    public string LastName { set; get; }
+    public List<Order> Orders { set; get; }
+    public string Password { set; get; }
 
   }
 }

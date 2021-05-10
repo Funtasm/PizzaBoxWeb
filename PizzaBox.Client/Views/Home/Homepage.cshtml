@@ -1,4 +1,15 @@
 <h1>Welcome to PizzaBox!</h1>
+@if (TempData["username"] != null)
+{
+  @: Welcome, @TempData["username"]!
+  TempData.Keep();
+}
 <form action="holder/order">
   <button type="submit">Start an Order!</button>
+</form>
+<form asp-controller="User" asp-action="create">
+  <button type="submit">New?</button>
+</form>
+<form asp-controller="User" asp-action="login">
+  <button type="submit">Login</button>
 </form>

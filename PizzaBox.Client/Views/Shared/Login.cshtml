@@ -1,0 +1,16 @@
+@model PizzaBox.Client.Models.ExistingUserViewModel
+<form asp-controller="user" asp-action="login" method="post">
+  <div class="form-group">
+    <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1"
+      asp-for="Username">
+    @Html.ValidationMessageFor(a => a.Username, "", new {@class = "text-danger"})
+  </div>
+  <div class="form-group">
+    <label for="">Password</label>
+    <input type="password" class="form-control" placeholder="Password" asp-for="Password">
+    @Html.ValidationMessageFor(a => a.Password, "", new {@class = "text-danger"})
+  </div>
+  <div class="form-group">
+    <button type="submit">Login</button>
+  </div>
+</form>

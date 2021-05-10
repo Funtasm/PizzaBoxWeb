@@ -1,5 +1,7 @@
+using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using PizzaBox.Client.Models;
+using PizzaBox.Domain.Models;
 using PizzaBox.Storage;
 
 namespace PizzaBox.Client.Controllers
@@ -21,6 +23,7 @@ namespace PizzaBox.Client.Controllers
       // ViewBag.Order = new OrderViewModel();
       //ViewData
       //TempData - does not survive redirects.
+
       var order = new OrderViewModel();
       order.Load(_unitOfWork);
       return View("order", order);

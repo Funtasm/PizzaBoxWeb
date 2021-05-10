@@ -9,8 +9,8 @@ using PizzaBox.Storage;
 namespace PizzaBox.Storage.Migrations
 {
     [DbContext(typeof(PizzaBoxContext))]
-    [Migration("20210507141510_2ndSeeding")]
-    partial class _2ndSeeding
+    [Migration("20210508171030_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -58,7 +58,7 @@ namespace PizzaBox.Storage.Migrations
                         });
                 });
 
-            modelBuilder.Entity("PizzaBox.Domain.Models.Order", b =>
+            modelBuilder.Entity("PizzaBox.Domain.Models.Customer", b =>
                 {
                     b.Property<long>("EntityID")
                         .ValueGeneratedOnAdd()
@@ -66,6 +66,28 @@ namespace PizzaBox.Storage.Migrations
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
                     b.HasKey("EntityID");
+
+                    b.ToTable("Customers");
+                });
+
+            modelBuilder.Entity("PizzaBox.Domain.Models.Order", b =>
+                {
+                    b.Property<long>("EntityID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<long>("CustomerEntityID")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("StoreEntityID")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("EntityID");
+
+                    b.HasIndex("CustomerEntityID");
+
+                    b.HasIndex("StoreEntityID");
 
                     b.ToTable("Orders");
                 });
@@ -133,6 +155,18 @@ namespace PizzaBox.Storage.Migrations
                             Name = "Large",
                             Price = 9.00m
                         });
+                });
+
+            modelBuilder.Entity("PizzaBox.Domain.Models.Store", b =>
+                {
+                    b.Property<long>("EntityID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.HasKey("EntityID");
+
+                    b.ToTable("Stores");
                 });
 
             modelBuilder.Entity("PizzaBox.Domain.Models.Topping", b =>
@@ -206,6 +240,25 @@ namespace PizzaBox.Storage.Migrations
                     b.ToTable("PizzaTopping");
                 });
 
+            modelBuilder.Entity("PizzaBox.Domain.Models.Order", b =>
+                {
+                    b.HasOne("PizzaBox.Domain.Models.Customer", "Customer")
+                        .WithMany()
+                        .HasForeignKey("CustomerEntityID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("PizzaBox.Domain.Models.Store", "Store")
+                        .WithMany("Orders")
+                        .HasForeignKey("StoreEntityID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Customer");
+
+                    b.Navigation("Store");
+                });
+
             modelBuilder.Entity("PizzaBox.Domain.Models.Pizza", b =>
                 {
                     b.HasOne("PizzaBox.Domain.Models.Crust", "Crust")
@@ -215,7 +268,7 @@ namespace PizzaBox.Storage.Migrations
                         .IsRequired();
 
                     b.HasOne("PizzaBox.Domain.Models.Order", "Order")
-                        .WithMany()
+                        .WithMany("Pizzas")
                         .HasForeignKey("OrderEntityId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -253,9 +306,19 @@ namespace PizzaBox.Storage.Migrations
                     b.Navigation("Pizzas");
                 });
 
+            modelBuilder.Entity("PizzaBox.Domain.Models.Order", b =>
+                {
+                    b.Navigation("Pizzas");
+                });
+
             modelBuilder.Entity("PizzaBox.Domain.Models.Size", b =>
                 {
                     b.Navigation("Pizzas");
+                });
+
+            modelBuilder.Entity("PizzaBox.Domain.Models.Store", b =>
+                {
+                    b.Navigation("Orders");
                 });
 #pragma warning restore 612, 618
         }

@@ -24,6 +24,7 @@ namespace PizzaBox.Storage
       builder.Entity<Pizza>().HasKey(a => a.EntityID);
       builder.Entity<Order>().HasKey(a => a.EntityID);
       builder.Entity<Customer>().HasKey(a => a.EntityID);
+      builder.Entity<Customer>().HasIndex(a => a.UserName).IsUnique();
       builder.Entity<Store>().HasKey(a => a.EntityID);
       OnDataSeeding(builder);
     }
@@ -49,6 +50,16 @@ namespace PizzaBox.Storage
         new Topping() {EntityID =4, Name="Alfredo Sauce", Price = 0.00m },
         new Topping() {EntityID =5, Name="Asiago", Price = 1.00m },
         new Topping() {EntityID =6, Name="Grilled Chicken", Price = 1.00m }
+      });
+      builder.Entity<Customer>().HasData(new Customer[]
+      {
+        new Customer() {EntityID =1, FirstName ="Seth", LastName = "Larson", UserName="Funtasm", Password= "example" },
+        new Customer() {EntityID =2, FirstName = "Green", LastName = "Mario", UserName="Luigi", Password= "example"}
+      });
+      builder.Entity<Store>().HasData(new Store[]
+      {
+        new Store() {EntityID =1, Address = "5432 Testing Dr."},
+        new Store() {EntityID =2, Address = "7893 Coding Ln."}
       });
     }
   }
