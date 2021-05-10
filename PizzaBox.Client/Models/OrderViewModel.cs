@@ -12,6 +12,7 @@ namespace PizzaBox.Client.Models
     public List<Crust> Crusts { get; set; }
     public List<Size> Sizes { get; set; }
     public List<Topping> Toppings { get; set; }
+    public List<Pizza> Pizzas { get; set; }
     public List<Store> Stores { get; set; }
     [Required(ErrorMessage = "Please select a crust.")]
     [DataType(DataType.Text)]
@@ -23,7 +24,7 @@ namespace PizzaBox.Client.Models
     public List<string> SelectedToppings { get; set; }
     [Required(ErrorMessage = "Required")]
     [DataType(DataType.Text)]
-    public Store SelectedStore { get; set; }
+    public string SelectedStore { get; set; }
     public Customer Customer { get; set; }
 
 
@@ -34,6 +35,11 @@ namespace PizzaBox.Client.Models
       Sizes = unitOfWork.Repo.Select<Size>(unitOfWork.context.Sizes, a => a.EntityID > 0).ToList();
       Toppings = unitOfWork.Repo.Select<Topping>(unitOfWork.context.Toppings, a => a.EntityID > 0).ToList();
       Stores = unitOfWork.Repo.Select<Store>(unitOfWork.context.Stores, a => a.EntityID > 0).ToList();
+
+    }
+    public void Load(List<Pizza> pizzas)
+    {
+      Pizzas = pizzas;
     }
     public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
     {

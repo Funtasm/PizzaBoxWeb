@@ -1,21 +1,19 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using PizzaBox.Domain.Interfaces;
 using PizzaBox.Domain.Models;
+using Microsoft.EntityFrameworkCore;
+
 
 namespace PizzaBox.Storage.Repositories
 {
-  public class OrderRepository : IRepository<Order>
+  public class OrderRepository : Repository
   {
     private readonly PizzaBoxContext _context;
     public OrderRepository(PizzaBoxContext context)
     {
       _context = context;
-    }
-
-    public bool Delete()
-    {
-      throw new System.NotImplementedException();
     }
 
     public void Insert(Order entry)
@@ -25,7 +23,16 @@ namespace PizzaBox.Storage.Repositories
 
     public IEnumerable<Order> Select(Func<Order, bool> filter)
     {
-      throw new System.NotImplementedException();
+      return _context.Orders
+      .Include(a => a.Customer)
+      .Include(a => a.Store)
+      .Include(a => a.Pizzas)
+      .ThenInclude(a => a.Toppings)
+      .Include(a => a.Pizzas)
+      .ThenInclude(a => a.Size)
+      .Include(a => a.Pizzas)
+      .ThenInclude(a => a.Crust)
+      .Where(filter);
     }
 
     public Order Update()

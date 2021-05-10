@@ -1,0 +1,21 @@
+@model PizzaBox.Client.Models.OrderViewModel
+<div class="column">
+
+  <h2>Your Pizzas:</h2>
+  @foreach (var item in Model.Pizzas)
+  {
+    <div class="row">
+      <div class="column">
+        @item.Size @item.Crust
+        @foreach (var topping in item.Toppings)
+        {
+          @: @topping
+        }
+      </div>
+    </div>
+  }
+
+</div>
+<div class="row">
+  <a href="checkout">Checkout</a> <a href="/order">Add Another Pizza</a>
+</div>

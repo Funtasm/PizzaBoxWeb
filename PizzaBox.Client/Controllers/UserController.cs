@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using PizzaBox.Client.Models;
@@ -53,9 +54,23 @@ namespace PizzaBox.Client.Controllers
       }
       if (ModelState.IsValid)
       {
-        TempData["username"] = User.Username;
-        TempData.Keep("username");
-        return View("Success");
+        var Customer = _unitOfWork.Repo.Select<Customer>(_unitOfWork.context.Customers, a => a.UserName == User.Username).FirstOrDefault();
+        if (Customer == null)
+        {
+          ModelState.AddModelError("username", "Username or password does not match.");
+          return View("Login", User);
+        }
+        else if (Customer.Password != User.Password)
+        {
+          ModelState.AddModelError("username", "Username or password does not match.");
+          return View("Login", User);
+        }
+        else
+        {
+          TempData["username"] = User.Username;
+          TempData.Keep("username");
+          return View("Success");
+        }
       }
       return View("Login", User);
     }

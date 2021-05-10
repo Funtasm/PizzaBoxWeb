@@ -9,5 +9,6 @@ namespace PizzaBox.Domain.Models
     public long CustomerEntityID { set; get; }
     public long StoreEntityID { set; get; }
     public Store Store { set; get; }
+    public bool Done { get; set; }
   }
 }

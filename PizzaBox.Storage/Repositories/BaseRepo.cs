@@ -15,9 +15,9 @@ namespace PizzaBox.Storage.Repositories
     {
       Database.Add(entry);
     }
-    public T Update<T>()
+    public void Update<T>(DbSet<T> Database, T entry) where T : class
     {
-      throw new System.NotImplementedException();
+      Database.Update(entry);
     }
     public bool Delete()
     {
