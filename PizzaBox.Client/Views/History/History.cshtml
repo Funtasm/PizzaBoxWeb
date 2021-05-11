@@ -1,0 +1,19 @@
+@model PizzaBox.Client.Models.HistoryViewModel
+@Html.ValidationMessageFor(a => a.User, "", new {@class = "text-danger"})
+<form action="/history/store" method="post">
+  <select class="form-select" asp-for="Store" aria-label="Store:">
+    <label>Store:</label>
+    <option label="Select Store"></option>
+    @foreach (var item in Model.Stores)
+    {
+      <option label="@item.Address" value="@item.Address"></option>
+    }
+  </select>
+  <button type="submit">By store</button>
+</form>
+<form action="/history/customer" method="post">
+  <label>Username:</label>
+  <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1"
+    asp-for="User">
+  <button type="submit">By username</button>
+</form>

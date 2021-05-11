@@ -1,0 +1,23 @@
+@model PizzaBox.Client.Models.HistoryViewModel
+<big>@Model.Store</big>
+
+@foreach (var item in Model.Orders)
+{
+  <div class="column">
+
+  @item.Customer.FirstName @item.Customer.LastName
+
+
+  @foreach (var Pizza in item.Pizzas)
+    {
+      <div class="row">
+        @Pizza.Crust @Pizza.Size
+        @foreach (var Topping in Pizza.Toppings)
+        {
+          @: @Topping
+        }
+      </div>
+    }
+
+  </div>
+}
