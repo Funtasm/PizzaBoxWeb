@@ -4,29 +4,29 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: dotnet build
-#----------------TEST-------------------------
+  #----------------TEST-------------------------
   test:
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
       - run: dotnet test -p:CollectCoverage=true -p:CoerletOutputFormat=opencover --logger=trx
-#-----------------ANALYZE------------------------
+  #-----------------ANALYZE------------------------
   analyze:
     needs:
       - build
       - test
     runs-on: ubuntu-20.04
     steps:
-    - uses: actions/checkout@v2
-      with:
-        # Disabling shallow clone is recommended for improving relevancy of reporting
-        fetch-depth: 0
-    - name: SonarCloud Scan
-      uses: sonarsource/sonarcloud-github-action@master
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-#-------------------PACKAGE-----------------------------     
+      - uses: actions/checkout@v2
+        with:
+          # Disabling shallow clone is recommended for improving relevancy of reporting
+          fetch-depth: 0
+      - name: SonarCloud Scan
+        uses: sonarsource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+  #-------------------PACKAGE-----------------------------
   package:
     env:
       DOCKER_TOKEN: ${{ secrets.DOCKER_TOKEN }}
@@ -40,12 +40,12 @@ jobs:
       - run: docker image build -f Dockerfile -t pizzabox .
       - run: docker image tag pizza-box-web funtasm/pizza-box-web
       - run: docker push funtasm/pizza-box-web
-      - run: docker logout       
-    
-#----------------------DEPLOY------------------------------          
+      - run: docker logout
+
+  #----------------------DEPLOY------------------------------
   deploy:
     needs:
-      - login
+      - analyze
     runs-on: ubuntu-20.04
     steps:
       - uses: azure/login@v1
@@ -55,11 +55,9 @@ jobs:
         with:
           app-name: funtasm-pizzaboxweb
           images: funtasm/pizza-box-web
-      
-
 
 name: ci-pipeline
-on: 
+on:
   push:
     branches:
       - client-branch
