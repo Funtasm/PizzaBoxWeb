@@ -32,7 +32,7 @@ jobs:
       DOCKER_TOKEN: ${{ secrets.DOCKER_TOKEN }}
       DOCKER_USER: ${{ secrets.DOCKER_USER }}
     needs:
-      - analyze
+      - build
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
@@ -45,7 +45,7 @@ jobs:
   #----------------------DEPLOY------------------------------
   deploy:
     needs:
-      - analyze
+      - package
     runs-on: ubuntu-20.04
     steps:
       - uses: azure/login@v1
