@@ -31,7 +31,14 @@ namespace PizzaBox.Client
       services.AddScoped<UnitOfWork>();
       services.AddDbContext<PizzaBoxContext>(options =>
       {
-        options.UseNpgsql(Configuration.GetConnectionString("pgsql")); //mssql
+        if (!(options.UseSqlServer(Configuration.GetConnectionString("mssql")) == null))
+        {
+          options.UseSqlServer(Configuration.GetConnectionString("mssql"));
+        }
+        else
+        {
+          options.UseSqlServer(Configuration.GetConnectionString("pgsql"));
+        }//mssql
       });
     }
 

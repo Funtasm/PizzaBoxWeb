@@ -32,7 +32,7 @@ namespace PizzaBox.Client.Controllers
       if (ModelState.IsValid)
       {
 
-        return View("CustomerHistory", history);
+        return View("StoreHistory", history);
       }
       history.LoadStore(_unitOfWork, history.Store);
       return View("History", history);
@@ -45,7 +45,6 @@ namespace PizzaBox.Client.Controllers
         ModelState.AddModelError("user", "No History Found.");
       if (ModelState.IsValid)
       {
-
         return View("CustomerHistory", history);
       }
       history.LoadStore(_unitOfWork, history.Store);

@@ -9,7 +9,7 @@ namespace PizzaBox.Client.Models
 {
   public class UserViewModel : IValidatableObject
   {
-    private static List<string> TakenUsernames { get; set; }
+    private List<string> TakenUsernames { get; set; }
 
     [Required(ErrorMessage = "Required")]
     [DataType(DataType.Text)]
@@ -27,17 +27,9 @@ namespace PizzaBox.Client.Models
     [DataType(DataType.Text)]
     public string ConfirmPassword { get; set; }
 
-
-    public void Load(UnitOfWork unitOfWork)
-    {
-      TakenUsernames = unitOfWork.Repo.Select<Customer>(unitOfWork.context.Customers, c => !string.IsNullOrWhiteSpace(c.UserName)).Select(a => a.UserName).ToList();
-    }
     public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
     {
-      if (TakenUsernames.Contains(Username))
-      {
-        yield return new ValidationResult("Username is taken!", new[] { "username" });
-      }
+
       if (ConfirmPassword != Password)
       {
         yield return new ValidationResult("Passwords do not match!", new[] { "confirmpassword", "password" });

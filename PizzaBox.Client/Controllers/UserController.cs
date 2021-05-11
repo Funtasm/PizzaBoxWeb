@@ -21,13 +21,17 @@ namespace PizzaBox.Client.Controllers
     public IActionResult Create()
     {
       var User = new UserViewModel();
-      User.Load(_unitOfWork);
       return View("NewUser", User);
     }
     [Route("User/Welcome")]
     [ValidateAntiForgeryToken]
     public IActionResult Welcome(UserViewModel User)
     {
+      var TakenUsernames = _unitOfWork.Repo.Select<Customer>(_unitOfWork.context.Customers, c => !string.IsNullOrWhiteSpace(c.UserName)).Select(a => a.UserName).ToList();
+      if (TakenUsernames.Contains(User.Username))
+      {
+        ModelState.AddModelError("Username", "Username is taken!");
+      }
       if (ModelState.IsValid)
       {
         var customer = new Customer() { UserName = User.Username, FirstName = User.FirstName, LastName = User.LastName, Password = User.Password };

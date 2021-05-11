@@ -4,13 +4,13 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: dotnet build
-
+#----------------TEST-------------------------
   test:
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
       - run: dotnet test -p:CollectCoverage=true -p:CoerletOutputFormat=opencover --logger=trx
-
+#-----------------ANALYZE------------------------
   analyze:
     needs:
       - build
@@ -26,6 +26,38 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+#-------------------PACKAGE-----------------------------     
+  package:
+    env:
+      DOCKER_TOKEN: ${{ secrets.DOCKER_TOKEN }}
+      DOCKER_USER: ${{ secrets.DOCKER_USER }}
+    needs:
+      - analyze
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+      - run: echo $DOCKER_TOKEN | docker login -u $DOCKER_USER --password-stdin
+      - run: docker image build -f Dockerfile -t pizzabox .
+      - run: docker image tag pizza-box-web funtasm/pizza-box-web
+      - run: docker push funtasm/pizza-box-web
+      - run: docker logout       
+    
+#----------------------DEPLOY------------------------------          
+  deploy:
+    needs:
+      - login
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+      - uses: azure/webapps-deploy@v2
+        with:
+          app-name: funtasm-pizzaboxweb
+          images: funtasm/pizza-box-web
+      
+
+
 name: ci-pipeline
 on: 
   push:
