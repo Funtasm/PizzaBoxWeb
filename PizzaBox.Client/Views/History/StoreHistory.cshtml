@@ -10,13 +10,13 @@
 
   @foreach (var Pizza in item.Pizzas)
     {
-      <div class="row">
+      <li>
         @Pizza.Crust @Pizza.Size
         @foreach (var Topping in Pizza.Toppings)
         {
           @: @Topping
         }
-      </div>
+      </li>
     }
 
   </div>

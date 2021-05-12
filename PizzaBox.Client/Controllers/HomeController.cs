@@ -6,7 +6,7 @@ namespace PizzaBox.Client.Controllers
 {
 
   [Route("")]
-  [Route("[controller]/[action]")]
+
 
   public class HomeController : Controller
   {
@@ -15,6 +15,7 @@ namespace PizzaBox.Client.Controllers
     {
       return View("HomePage");
     }
+    [Route("[controller]/[action]")]
     public IActionResult Meme()
     {
       return View("Privacy");

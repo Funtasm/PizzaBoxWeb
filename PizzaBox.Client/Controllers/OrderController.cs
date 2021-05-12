@@ -18,7 +18,6 @@ namespace PizzaBox.Client.Controllers
     }
     [HttpGet]
     [HttpPost]
-    //[ValidateAntiForgeryToken]
     [Route("/Order")]
     public IActionResult Menu()
     {
@@ -70,15 +69,6 @@ namespace PizzaBox.Client.Controllers
           return View("Login");
         }
 
-
-
-
-
-        // else
-        // {
-        //   order.Load(_unitOfWork);
-        //   return View("Cart", order);
-        // }
       }
       //shouldnt ever be reached
       order.Load(_unitOfWork);
@@ -87,7 +77,6 @@ namespace PizzaBox.Client.Controllers
     [Route("/Order/Checkout")]
     public IActionResult Checkout(OrderViewModel order)
     {
-      //order.Load(CustomerPizzas);
       var CheckOrder = _unitOfWork.OrderRepo.Select(a => a.Customer.UserName == TempData["username"].ToString()).LastOrDefault();
       if (CheckOrder != null && !CheckOrder.Done)
       {

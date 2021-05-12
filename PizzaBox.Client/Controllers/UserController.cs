@@ -49,7 +49,7 @@ namespace PizzaBox.Client.Controllers
 
       if (User.Username == null)
       {
-        //ModelState.Clear();
+        ModelState.Clear();
         return View("Login", User);
       }
       if (ModelState.IsValid)

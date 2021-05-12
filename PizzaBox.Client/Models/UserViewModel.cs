@@ -9,7 +9,6 @@ namespace PizzaBox.Client.Models
 {
   public class UserViewModel : IValidatableObject
   {
-    private List<string> TakenUsernames { get; set; }
 
     [Required(ErrorMessage = "Required")]
     [DataType(DataType.Text)]
