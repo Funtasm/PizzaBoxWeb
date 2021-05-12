@@ -16,9 +16,7 @@ namespace PizzaBox.Client.Models
     [Required(ErrorMessage = "Required")]
     [DataType(DataType.Text)]
     public string Password { get; set; }
-    public void Load(UnitOfWork unitOfWork)
-    {
-    }
+
     public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
     {
       if (Password == null)

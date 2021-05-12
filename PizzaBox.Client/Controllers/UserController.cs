@@ -46,14 +46,10 @@ namespace PizzaBox.Client.Controllers
     [Route("User/Login")]
     public IActionResult Login(ExistingUserViewModel User)
     {
-      // var customer = _unitOfWork.Repo.Select<Customer>(_unitOfWork.context.Customers, a => a.UserName == User.Username).First();
-      // var order = new OrderViewModel() { Customer = customer };
-      // order.Load(_unitOfWork);
-      // return View("Order", order);
+
       if (User.Username == null)
       {
-        ModelState.Clear();
-        User.Load(_unitOfWork);
+        //ModelState.Clear();
         return View("Login", User);
       }
       if (ModelState.IsValid)

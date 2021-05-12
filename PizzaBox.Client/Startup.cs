@@ -38,7 +38,7 @@ namespace PizzaBox.Client
         else
         {
           options.UseNpgsql(Configuration.GetConnectionString("pgsql"));
-        }//mssql
+        }
       });
     }
 
