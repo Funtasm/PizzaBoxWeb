@@ -37,4 +37,4 @@ Visit the url given as the server runs, and enjoy using the application!
 
 ## License
 
-This project uses the following license: [MIT](<link>).
+This project uses the following license: [MIT](https://github.com/Funtasm/PizzaBoxWeb/blob/main/LICENSE).
